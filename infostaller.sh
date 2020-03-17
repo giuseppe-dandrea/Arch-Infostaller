@@ -10,8 +10,8 @@ For more information visit https://wiki.archlinux.org/index.php/Installation_gui
 
 Note: To navigate to a specific phase of the installation set the n variable
 	# n=2
-The next call of arch_help will show the first phase of the installation.
-Note: n=1 is this help message"
+The next call of arch_help will show the second phase of the installation.
+Note: n=0 is this help message"
 
 
 "Set the keyboard layout
@@ -141,19 +141,19 @@ Change root into the new system:
 
 Now source again the infostaller and set the page to the new root enviroment
 	# source /home/infostaller.sh
-	# n=13
+	# n=12
 "
 
 
 )
 
-n=1
+n=0
 
 arch_help() {
 	echo ""
 	echo "###################"
 	echo ""
-	echo "${info_messages[$n]}"
+	echo "${info_messages[@]:0:$n}"
 	echo ""
 	echo "###################"
 	echo ""
