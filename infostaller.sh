@@ -153,7 +153,7 @@ arch_help() {
 	echo ""
 	echo "###################"
 	echo ""
-	echo "${info_messages[@]:0:$n}"
+	echo "${info_messages[@]:$((n-1)):$n}"
 	echo ""
 	echo "###################"
 	echo ""
