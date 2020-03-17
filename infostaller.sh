@@ -147,7 +147,7 @@ Now source again the infostaller and set the page to the new root enviroment
 
 )
 
-n=0
+n=1
 
 arch_help() {
 	echo ""
