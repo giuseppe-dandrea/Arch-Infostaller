@@ -144,7 +144,89 @@ Now source again the infostaller and set the page to the new root enviroment
 	# n=13
 "
 
+"Time zone
 
+Set the time zone:
+	# ln -sf /usr/share/zoneinfo/Region/City /etc/localtime
+	
+Run hwclock to generate /etc/adjtime:
+	# hwclock --systohc
+
+This command assumes the hardware clock is set to UTC. See System time#Time standard for details."
+
+"Localization
+
+Uncomment en_US.UTF-8 UTF-8 and other needed locales in /etc/locale.gen, and generate them with:
+	# locale-gen
+
+Create the locale.conf file, and set the LANG variable accordingly:
+	/etc/locale.conf
+		LANG=en_US.UTF-8
+
+If you set the keyboard layout, make the changes persistent in vconsole.conf:
+	/etc/vconsole.conf
+		KEYMAP=de-latin1"
+
+"Network configuration
+
+Create the hostname file:
+	/etc/hostname
+		myhostname
+
+Add matching entries to hosts:
+	/etc/hosts
+		127.0.0.1	localhost
+		::1		localhost
+		127.0.1.1	myhostname.localdomain	myhostname
+
+If the system has a permanent IP address, it should be used instead of 127.0.1.1.
+
+Complete the network configuration for the newly installed environment, that includes installing your preferred network management software."
+
+"Initramfs
+
+Creating a new initramfs is usually not required, because mkinitcpio was run on installation of the kernel package with pacstrap.
+
+For LVM, system encryption or RAID, modify mkinitcpio.confand recreate the initramfs image:
+	# mkinitcpio -P"
+
+"Root password
+
+Set the root password:
+	# passwd"
+
+"Boot loader
+
+Choose and install a Linux-capable boot loader. If you have an Intel or AMD CPU, enable microcode updates in addition.
+
+Note: in the next phase will be the instruction to install GRUB on an EFI system"
+
+"Grub
+
+Note: skip if you have installed another boot loader in the previous phase
+
+First, install the packages grub and efibootmgr: GRUB is the bootloader while efibootmgr is used by the GRUB installation script to write boot entries to NVRAM.
+
+Then follow the below steps to install GRUB:
+	Mount the EFI system partition and in the remainder of this section, substitute esp with its mount point.
+	Choose a bootloader identifier, here named GRUB. A directory of that name will be created in esp/EFI/ to store the EFI binary and this is the name that will appear in the UEFI boot menu to identify the GRUB boot entry.
+	Execute the following command to install the GRUB EFI application grubx64.efi to esp/EFI/GRUB/ and install its modules to /boot/grub/x86_64-efi/.
+		# grub-install --target=x86_64-efi --efi-directory=esp --bootloader-id=GRUB
+
+	After the above install completed the main GRUB directory is located at /boot/grub/. Note that grub-install also tries to create an entry in the firmware boot manager, named GRUB in the above example.
+
+Note: before executing the next step, mount all other partitions containing operating systems you want to include in grub.
+
+Use the grub-mkconfig tool to generate /boot/grub/grub.cfg:
+	# grub-mkconfig -o /boot/grub/grub.cfg"
+
+"Reboot
+
+Exit the chroot environment by typing exit or pressing Ctrl+d.
+
+Optionally manually unmount all the partitions with umount -R /mnt: this allows noticing any 'busy' partitions, and finding the cause with fuser.
+
+Finally, restart the machine by typing reboot: any partitions still mounted will be automatically unmounted by systemd. Remember to remove the installation media and then login into the new system with the root account."
 )
 
 n=1
