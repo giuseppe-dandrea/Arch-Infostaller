@@ -10,8 +10,7 @@ For more information visit https://wiki.archlinux.org/index.php/Installation_gui
 
 Note: To navigate to a specific phase of the installation set the n variable
 	# n=2
-The next call of arch_help will show the first phase of the installation.
-Note: n=1 is this help message"
+The next call of arch_help will show the second phase of the installation."
 
 
 "Set the keyboard layout
@@ -229,13 +228,13 @@ Optionally manually unmount all the partitions with umount -R /mnt: this allows 
 Finally, restart the machine by typing reboot: any partitions still mounted will be automatically unmounted by systemd. Remember to remove the installation media and then login into the new system with the root account."
 )
 
-n=1
+n=0
 
 arch_help() {
 	echo ""
 	echo "###################"
 	echo ""
-	echo "${info_messages[@]:$((n-1)):$n}"
+	echo "${info_messages[@]:$n:1}"
 	echo ""
 	echo "###################"
 	echo ""
