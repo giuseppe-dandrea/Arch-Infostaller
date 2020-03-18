@@ -140,7 +140,7 @@ Change root into the new system:
 
 Now source again the infostaller and set the page to the new root enviroment
 	# source /home/infostaller.sh
-	# n=13
+	# n=12
 "
 
 "Time zone
