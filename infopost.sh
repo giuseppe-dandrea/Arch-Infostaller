@@ -22,7 +22,8 @@ Create a new user with:
 	# useradd -m -G addiotional_groups -s login_shell username
 		Note: -m == --create-home
 
-Set the password using passwd next time you login with your new user"
+Although it is not required to protect the newly created user archie with a password, it is highly recommended to do so:
+	# passwd archie"
 
 "Privilege elevation
 
